@@ -1,24 +1,33 @@
-n1 = float( input('Digite um número') )
-n2 = float( input('Digite um número') )
+#1
+print('seja bem vindo')
 
-soma  =  n1 + n2 
-print(soma)
+#2
+Valor = True
+print('valor')
 
-n1 = float( input('Digite um número') )
-n2 = float( input('Digite um número') )
+#3
+mult  =  10 * 10
+print(mult)
 
-subtração= n1 - n2 
-print(subtração)
+#4
+div = 10 /5
+print(div)
 
-n1 = float( input('Digite um número') )
-n2 = float( input('Digite um número') )
+#5
+sub  =  10 - 10
+print(sub)
 
-multiplicação= n1 - n2 
-print(multiplicação)
+#6
+div = 10 /5
+print(div)
 
-n1 = float( input('Digite um número') )
-n2 = float( input('Digite um número') )
+#7
+mult  =  10 * 10 * 12 * 10
+print(mult)
 
-divisão= n1 - n2 
-print(divisão)
+#8
+potencia  =  10** 2
+print(potencia)
 
+#9
+nota_matematica  =  float(input('Digite a nota'))
