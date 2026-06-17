@@ -1,0 +1,139 @@
+
+# Indentação em python - organizar o código py
+# Tipo de organização do código
+
+# Variável precisa estar escostada na borda
+# quando não estiver dentro de nenhum escopo.
+
+x  =  10
+
+# quando estiver dentro de um escopo
+# precisar te pelo menos 1  espaço
+# O padrão são 4 espaços
+
+if x == 10:
+   print(x)     
+
+---------------------------------------------
+
+
+# concatenção com virgula (,)
+
+
+
+# Concatenação = Juntas informações
+# Visualizar uma saída 
+
+nome  =  'Maria '
+print('Olá, seja bem vinda', nome)
+print('Olá, seja bem vinda' + ' '+ nome)
+print('Olá, seja bem vinda {}'.format(nome))
+print('Olá, seja bem vinda %s'%(nome))
+print(f'Olá, seja bem vinda {nome}')
+
+
+# nome  =  'Julio'
+# sobrenome  =    'Fernando'
+
+# print("Olá Dr.", nome, sobrenome)
+# print("Olá Dr.", nome, sobrenome, True)
+
+# concatenação com f-string
+
+n1 = int(input('Digite um número'))
+n2 = int(input('Digite um número'))
+cal= n1/n2
+
+print(f'''
+resultado:
+{cal}     
+''')
+
+
+# Format
+n1 = int(input('Digite um número'))
+n2 = int(input('Digite um número'))
+# cal= n1/n2
+print('Idades: {},{}'.format(n1,n2))
+
+
+# % 
+n1 = input('Digite um número')
+n2 = input('Digite um número')
+# cal= n1/n2
+print(' %s Idades: %s'%(n1,n2))
+
+
+# Concatenação com (+)
+n1 = input('Digite um número')
+n2 = input('Digite um número')
+# cal= n1/n2
+print('Idades' + '  ' + n1 + '  ' + n2)
+
+# -------------------------------------
+# Refatorar = melhorar o código
+# Encontrar erros 
+
+# exemplo incorreto 
+x = 'Julio'
+y = 'Cesar'
+
+print('Hello', x, y)
+
+# exemplo correto 
+nome = 'Julio'
+sobrenome = 'Cesar'
+print('Hello', nome, sobrenome)
+
+c = 10
+
+# 3  formas de pular linhas
+
+# print()
+
+# "\n"
+
+# ''' 
+
+
+# '''
+
+
+print("Olá, mundo!")
+
+
+nome = input("Qual é o seu nome? ")
+
+
+texto = "Python"
+comprimento = len(texto)  # Isso irá retornar 6
+
+
+x = 5
+tipo = type(x)  # Isso irá retornar <class 'int'>
+
+
+numero = int("42")    # Converte uma string para um número inteiro
+texto = str(3.14)     # Converte um número de ponto flutuante para uma string
+
+
+texto = "Python"
+lista = list(texto)   # Converte a string em uma lista ['P', 'y', 't', 'h', 'o', 'n']
+
+
+numeros = range(1, 6)  # Cria uma sequência de 1 a 5
+
+
+
+numeros = [1, 2, 3, 4, 5]
+soma = sum(numeros)  # Isso irá retornar 15
+
+
+
+numeros = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]
+minimo = min(numeros)  # Isso irá retornar 1
+maximo = max(numeros)  # Isso irá retornar 9
+
+
+numeros = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]
+numeros_ordenados = sorted(numeros)  # Isso irá retornar [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]
