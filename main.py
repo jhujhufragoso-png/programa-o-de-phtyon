@@ -1,33 +1,88 @@
-#1
-print('seja bem vindo')
 
-#2
-Valor = True
-print('valor')
+a = int(input())
+b = int(input())
 
-#3
-mult  =  10 * 10
-print(mult)
+try:
+      print(a/b)
 
-#4
-div = 10 /5
-print(div)
+except ZeroDivisionError as error:
+      print(error)
 
-#5
-sub  =  10 - 10
-print(sub)
+else:
+      print( ' Sem erros')
 
-#6
-div = 10 /5
-print(div)
+finally:
+      print('Aqui sempre vai printar')
 
-#7
-mult  =  10 * 10 * 12 * 10
-print(mult)
 
-#8
-potencia  =  10** 2
-print(potencia)
+----------------------------------------------------
 
-#9
-nota_matematica  =  float(input('Digite a nota'))
+
+def trantando_erros():
+    try: 
+        numero = int(input('>>'))
+    except ZeroDivisionError as erro:
+        print(erro)
+    except ValueError as erro2:
+        print('Erro no valor da variável')  
+    except NameError as erro:
+        print(erro)      
+    finally:
+        print('O sistema foi carregado')
+
+trantando_erros()
+
+
+---------------------------------------------------------
+
+
+def divisao():
+
+    try:
+      n1 = float(input('>>'))
+      n2 = float(input('>>'))
+      div = n1/n2
+      print(div)  
+    except ZeroDivisionError:
+        print("A divisão não ser por zero")
+    except ValueError:
+        print('Um texo foi digitado')
+    except TypeError as erro:
+        print(erro)
+
+    else:
+        print('Algo deu errado ')    
+
+     
+           
+divisao() 
+
+
+
+
+import statistics 
+
+
+def divisao():
+    try:
+     lista=[0,2,1 , 5]
+     moda  =  statistics.mode(lista)
+     print(moda)
+    except ZeroDivisionError as erro:
+        print(erro)
+    except TypeError:
+        print('Provavelmente digitaram letras')
+    except ValueError as erro :
+        print(erro)
+    except NameError as erro:
+        print(erro)    
+    except SyntaxError as erro:
+        print(erro)     
+    finally:
+        print('Carregamento finalizado')
+
+
+divisao()        
+
+
+  
