@@ -1,26 +1,17 @@
-def valor_hora(carga, salario):
-    return salario / carga
+def comparar_par_impar(num1, num2):
+    # Verifica o primeiro número
+    if num1 % 2 == 0:
+        res1 = "PAR"
+    else:
+        res1 = "ÍMPAR"
+        
+    # Verifica o segundo número
+    if num2 % 2 == 0:
+        res2 = "PAR"
+    else:
+        res2 = "ÍMPAR"
+        
+    print(f"O número {num1} é {res1}.")
+    print(f"O número {num2} é {res2}.")
 
-def extra_50(valor_hora):
-    return valor_hora * 1.5
-
-def salario_total(quantidade_extra, salario, extra_50_):
-    valor_q = quantidade_extra * extra_50_
-    total   =  valor_q + salario
-    return total, valor_q
-
-
-def sistema_RH():
-    carga  = float(input('Carga: '))
-    salario = float(input('Salário: '))
-    v_h  = valor_hora(carga, salario)
-    print(f'Valor hora: , {v_h:.2f}')
-    print('------------- ')
-    print('HORA EXTRA 50% ')
-    ex_50 = extra_50(v_h)
-    print(f'{ex_50:.2f}')
-    print('------------- ')
-    quantidade = float(input('Extra quantidade: '))
-    sal = salario_total(quantidade, salario, ex_50 )
-    print('R$', round(sal[0],2), "Total hora extra",  round(sal[1],2))
-sistema_RH()
+comparar_par_impar(7, 12)
