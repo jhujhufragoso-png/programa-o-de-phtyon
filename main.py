@@ -1,23 +1,4 @@
 
-
-senha_correta = 12
-chances = 3
-
-while chances > 0:
-      senha = input("Digite a senha ->")      
-if senha == senha_correta:       
-      print("Acesso liberado")
-else:
-    chances -=1
-    print("Tente novamente")
-
-if chances == 0:
-   print("Chances esgotadas")         
-       
-
-
-
-
 arquivo: main.py
 
 from ex1 import aleatorio
@@ -26,7 +7,6 @@ from ex2 import aleatorio2
 
 aleatorio()
 aleatorio2()
-
 
 aquivo: ex2.py
 
@@ -45,7 +25,11 @@ def aleatorio():
 
 
 
-import random
+
+
+
+
+    import random
 
 
 def atividade1():
@@ -57,6 +41,9 @@ def atividade2():
     y  =  random.randint(1,10)
     z  =  random.randint(1,10)
     return x, y, z
+
+
+
 
 import metodo
 
