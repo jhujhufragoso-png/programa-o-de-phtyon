@@ -1,85 +1,98 @@
-
-arquivo: main.py
-
-from ex1 import aleatorio
-from ex2 import aleatorio2
-
-
-aleatorio()
-aleatorio2()
-
-aquivo: ex2.py
-
+import pygame
 import random
-def aleatorio2():
-    n   =  random.randrange(10,30)
+
+pygame.init()
+
+WIDTH = 900
+HEIGHT = 300
+
+screen =  pygame.display.set_mode((WIDTH, HEIGHT))
+
+pygame.display.set_caption('JOGO DO TREX')
+# pygame.display.iconify('vitamina.ico')
+
+clock =  pygame.time.Clock()
+
+RED  = (255,0,0)
+GREEN = 'green'
+BLUE = 'blue'
+
+GROUND  =  HEIGHT - 50
+player = pygame.Rect(80, GROUND - 55 , 40, 60)
+
+gravity = 0
+jump = False
+
+obstacles  =  []
+speed =  7
+score  = 0
+
+font =  pygame.font.SysFont('arial', 28)
+
+spawn_timer = 0
+
+run =  True
+
+while run:
+    clock.tick(60)
+    screen.fill('white')
+    pygame.draw.line(screen, BLUE, (0,GROUND), (WIDTH, GROUND),3)
+    for event in pygame.event.get():
+        if event.type  == pygame.QUIT:
+            run =  False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key in [pygame.K_SPACE, pygame.K_UP]:
+                if not jump:
+                    gravity = -15
+                    jump = True
+             
+    gravity += 0.8
+    player.y += gravity
+
+    if player.bottom >= GROUND:
+        player.bottom = GROUND
+        gravity = 0
+        jump = False
    
-    print(n)
-    
-arquivo: ex1.py
+    # obstaculos
 
-import random
-def aleatorio():
-    n  =  random.randint(5,10)
-    print(n)    
+    spawn_timer += 1
+   
+    if spawn_timer > random.randint(50,90):
+        h  =  random.randint(40,70)
 
+        obstacle = pygame.Rect(
+                WIDTH,
+                GROUND - h,
+                25,
+                h
+        )
+        obstacles.append(obstacle)
+        spawn_timer = 0
 
+    for obstacle in obstacles[:]:
+        obstacle.x  -= speed  
 
+        if obstacle.right < 0 :
+            obstacles.remove(obstacle)
+            score += 1  
+        if player.colliderect(obstacle):
+            run = False
+    # aumentar dificuldade
+    speed = 8 + score // 8
 
+    pygame.draw.rect(screen, GREEN, player)
 
+    for obstacle in obstacles:
+        pygame.draw.rect(screen, RED, obstacle)
 
+    # pontuação
 
-    import random
+    text =  font.render(f'Pontos {score}', True, BLUE)
+    screen.blit(text, (20,20))
 
+    pygame.display.flip()
 
-def atividade1():
-    x  =  random.randint(5,10)
-    return x
-
-def atividade2():
-    x  =  random.randint(1,10)
-    y  =  random.randint(1,10)
-    z  =  random.randint(1,10)
-    return x, y, z
-
-
-
-
-# import metodo
-
-# print(metodo.atividade1())
-# print(metodo.atividade2())
-
-
-# **6 - Tabuada de multiplicação**
-# Pede ao usuário para inserir um número inteiro
-numero = int(input("Digite um número inteiro para ver a sua tabuada: "))
-
-print(f"\nTabuada do {numero}:")
-print("-" * 15)
-
-# Calcula e mostra a tabuada de 1 a 10
-for i in range(1, 11):
-    resultado = numero * i
-    print(f"{numero} x {i:2d} = {resultado}")
-
-print("-" * 15)
-
-# ***Utilize print() na saída***
-
-# Peça ao usuário para inserir um número inteiro e mostre a tabuada de multiplicação desse número de 1 a 10.
-
-# (while ou for )
-
-# **7 -  Números ímpares reversos**
-print("Contagem regressiva de números ímpares (99 a 1):")
-print("-" * 45)
-
-# O range começa em 99, vai até 0 (para incluir o 1) e diminui de 2 em 2
-for i in range(99, 0, -2):
-    print(i, end=" ")
-
-print("\n" + "-" * 45)
-# Exiba uma contagem regressiva de números ímpares de 99 a 1.
-
-# (for)
+pygame.quit()
+print('GAME OVER PONTUAÇÃO', score)
