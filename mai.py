@@ -1,44 +1,107 @@
-# Mapeamento dos papéis do time de desenvolvimento
-papeis_scrum = {
-    "Product Owner (PO)": {
-        "Responsabilidades": [
-            "Validar as entregas (aceitar ou rejeitar resultados)",
-            "Decidir o que será desenvolvido em cada Sprint"
-        ],
-        "Habilidades": ["Visão de negócio", "Comunicação clara", "Capacidade de priorização"]
-    },
-    "Scrum Master (SM)": {
-        "Responsabilidades": [
-            "Facilitar eventos como Daily, Planning, Review e Retrospective",
-            "Remover impedimentos que atrapalham o time",
-            "Proteger o time de interferências externas"
-        ],
-        "Habilidades": ["Liderança servidora", "Resolução de conflitos", "Conhecimento ágil"]
-    },
-    "Tech Lead (Líder Técnico)": {
-        "Responsabilidades": [
-            "Ajudar a equipe a resolver desafios técnicos complexos",
-            "Mentoria para desenvolvedores menos experientes",
-            "Participar de decisões sobre tecnologias e ferramentas"
-        ],
-        "Habilidades": ["Conhecimento técnico aprofundado", "Capacidade de mentoria"]
-    },
-    "Developers (Time de Desenvolvimento)": {
-        "Responsabilidades": [
-            "Auto-organização para distribuir tarefas",
-            "Participar ativamente dos eventos do Scrum",
-            "Estimar esforço das tarefas (Planning Poker)",
-            "Ajudar a melhorar processos (Retrospectivas)"
-        ],
-        "Habilidades": ["Colaboração", "Autonomia", "Habilidades técnicas"]
-    }
-}
 
-# Exibindo os dados formatados
-for papel, info in papeis_scrum.items():
-    print(f"=== {papel} ===")
-    print("Responsabilidades:")
-    for resp in info["Responsabilidades"]:
-        print(f"  - {resp}")
-    print(f"Habilidades Chave: {', '.join(info['Habilidades'])}")
-    print("-" * 40)
+
+
+import tkinter as tk
+import customtkinter
+from tkinter import messagebox
+
+def soma():
+   try:
+        n1  =  float(numero_1.get())
+        n2  =  float(numero_1.get())
+        resultado  = n1  +  n2
+        r.config (text = resultado)
+        messagebox.showinfo('','Obrigada por usar a aplicação')
+   except:
+        messagebox.showerror('', 'digite um número para fazer o calculo')
+
+
+def sub():
+    n1  =  float(numero_1.get())
+    n2  =  float(numero_1.get())
+    resultado  = n1  -  n2
+    r.config (text = resultado)
+
+
+def mult():
+    n1  =  float(numero_1.get())
+    n2  =  float(numero_1.get())
+    resultado  = n1  * n2
+    r.config (text = resultado)
+
+
+def div():
+    n1  =  float(numero_1.get())
+    n2  =  float(numero_1.get())
+    resultado  = n1  / n2
+    r.config (text = resultado)
+
+
+janela =  tk.Tk()
+
+janela.iconbitmap('x.ico')
+
+janela.geometry('700x600')
+
+
+secao = tk.Frame(janela)
+secao.grid(pady=20, row=1, column= 0)
+
+
+t  = tk.Label(secao, text = 'Faça o calculo', font=('arial', 15))
+t.grid(padx=20, pady=10, row = 1 , column= 0)
+
+
+
+
+secao2_inputs = tk.Frame(janela)
+secao2_inputs.grid(row=2,  column= 0)
+
+numero_1 = customtkinter.CTkEntry(secao, width = 100, font=('lato', 15))
+numero_1.grid(column = 0, row = 3)
+
+numero_1 = customtkinter.CTkEntry(secao, width = 100, font=('lato', 15))
+numero_1.grid(column = 1, row  = 3)
+
+
+
+
+# seção para os botões
+
+secao3_botoes = tk.Frame(janela)
+secao3_botoes.grid(pady=10, row=3, column= 0)
+
+
+button_mais = customtkinter.CTkButton(secao3_botoes, text="+", command=soma)
+button_mais.grid(padx=20, pady=20, row=3, column= 0)
+
+
+button_menos = customtkinter.CTkButton(secao3_botoes, text="-", command=sub)
+button_menos.grid(padx=20, pady=20, row=3, column= 1)
+
+button_mult = customtkinter.CTkButton(secao3_botoes, text="x", command= mult)
+button_mult.grid(padx=20, pady=20, row=3, column= 2)
+
+
+button_div = customtkinter.CTkButton(secao3_botoes, text=":", command=div )
+button_div.grid(padx=20, pady=20, row=3, column= 3)
+
+
+
+
+
+
+
+# resultado
+
+
+secao4_r = tk.Frame(janela)
+secao4_r.grid(pady=10, row=5, column= 0)
+
+
+
+r  = tk.Label(secao4_r, text = '=', font=('arial', 15))
+r.grid(padx=20, pady=10, row = 5 , column= 0)
+
+
+janela.mainloop()
