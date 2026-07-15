@@ -1,98 +1,67 @@
-import pygame
-import random
+import sqlite3
 
-pygame.init()
+# 1. Conexão com o Banco de Dados
+def conectar():
+    return sqlite3.connect("projeto.db")
 
-WIDTH = 900
-HEIGHT = 300
-
-screen =  pygame.display.set_mode((WIDTH, HEIGHT))
-
-pygame.display.set_caption('JOGO DO TREX')
-# pygame.display.iconify('vitamina.ico')
-
-clock =  pygame.time.Clock()
-
-RED  = (255,0,0)
-GREEN = 'green'
-BLUE = 'blue'
-
-GROUND  =  HEIGHT - 50
-player = pygame.Rect(80, GROUND - 55 , 40, 60)
-
-gravity = 0
-jump = False
-
-obstacles  =  []
-speed =  7
-score  = 0
-
-font =  pygame.font.SysFont('arial', 28)
-
-spawn_timer = 0
-
-run =  True
-
-while run:
-    clock.tick(60)
-    screen.fill('white')
-    pygame.draw.line(screen, BLUE, (0,GROUND), (WIDTH, GROUND),3)
-    for event in pygame.event.get():
-        if event.type  == pygame.QUIT:
-            run =  False
-
-        if event.type == pygame.KEYDOWN:
-            if event.key in [pygame.K_SPACE, pygame.K_UP]:
-                if not jump:
-                    gravity = -15
-                    jump = True
-             
-    gravity += 0.8
-    player.y += gravity
-
-    if player.bottom >= GROUND:
-        player.bottom = GROUND
-        gravity = 0
-        jump = False
-   
-    # obstaculos
-
-    spawn_timer += 1
-   
-    if spawn_timer > random.randint(50,90):
-        h  =  random.randint(40,70)
-
-        obstacle = pygame.Rect(
-                WIDTH,
-                GROUND - h,
-                25,
-                h
+def criar_tabela():
+    """Cria a tabela no banco de dados se não existir."""
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS itens (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            quantidade INTEGER NOT NULL,
+            preco REAL NOT NULL
         )
-        obstacles.append(obstacle)
-        spawn_timer = 0
+    """)
+    conn.commit()
+    conn.close()
 
-    for obstacle in obstacles[:]:
-        obstacle.x  -= speed  
+# --- FUNÇÕES DO CRUD ---
 
-        if obstacle.right < 0 :
-            obstacles.remove(obstacle)
-            score += 1  
-        if player.colliderect(obstacle):
-            run = False
-    # aumentar dificuldade
-    speed = 8 + score // 8
+# CREATE (Criar / Inserir)
+def criar_item(nome, quantidade, preco):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("""
+        INSERT INTO itens (nome, quantidade, preco)
+        VALUES (?, ?, ?)
+    """, (nome, quantidade, preco))
+    conn.commit()
+    conn.close()
 
-    pygame.draw.rect(screen, GREEN, player)
+# READ (Ler / Listar Todos)
+def listar_itens():
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM itens")
+    resultados = cursor.fetchall()
+    conn.close()
+    return resultados
 
-    for obstacle in obstacles:
-        pygame.draw.rect(screen, RED, obstacle)
+# UPDATE (Atualizar / Alterar)
+def atualizar_item(id_item, novo_nome, nova_quantidade, novo_preco):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("""
+        UPDATE itens
+        SET nome = ?, quantidade = ?, preco = ?
+        WHERE id = ?
+    """, (novo_nome, nova_quantidade, novo_preco, id_item))
+    conn.commit()
+    conn.close()
 
-    # pontuação
+# DELETE (Deletar / Remover)
+def deletar_item(id_item):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM itens WHERE id = ?", (id_item,))
+    conn.commit()
+    conn.close()
 
-    text =  font.render(f'Pontos {score}', True, BLUE)
-    screen.blit(text, (20,20))
-
-    pygame.display.flip()
-
-pygame.quit()
-print('GAME OVER PONTUAÇÃO', score)
+# Inicializa o banco ao rodar o script
+if __name__ == "__main__":
+    criar_tabela()
+    print("Banco de dados pronto para uso!")
